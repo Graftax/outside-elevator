@@ -3,6 +3,7 @@
 #include <chrono>
 #include "SimulatedElevator.h"
 #include "ElevatorController.h"
+#include <queue>
 
 constexpr float FixedDeltaTime = 1.0f / 60.0f;
 constexpr float MillisInSecond = 1000.0f;
@@ -15,11 +16,14 @@ int main()
     SimulatedElevator simulationTarget;
 	ElevatorController controller;
 
+	controller.Init(&simulationTarget, &simulationTarget);
+
+	std::queue<int> stops;
+	stops.push(1);
+	controller.addStops(stops);
+
 	milliseconds prevTimestamp = duration_cast<milliseconds>( system_clock::now().time_since_epoch());
 	float timeBankMS = 0;
-	int updateCounter = 0;
-
-	simulationTarget.SetTargetVelocity(100);
 
 	while (true)
 	{
@@ -33,10 +37,9 @@ int main()
 
 		while (timeBankMS > FixedDeltaTime)
 		{
-			updateCounter += 1;
 			timeBankMS -= FixedDeltaTime;
-
 			simulationTarget.Step(FixedDeltaTime);
+			controller.Step(FixedDeltaTime);
 
 			std::cout << simulationTarget.ReadPositionAsMM() << ", " << simulationTarget.ReadStopAlignmentSensor() << std::endl;
 		}
