@@ -3,11 +3,12 @@
 // Interface for issuing commands to hardware devices.
 class ControlProvider
 {
-	virtual ~ControlProvider() = 0;
+
+public:
 
 	// Should tell the lift mechanism what velocity to attempt to achieve. Should 
 	// sanity check value before sending in case encoders fail to check due to wear/damage.
-	virtual void SetDesiredVelocity(int MMS) = 0;
+	virtual void SetTargetVelocity(int MMS) = 0;
 
 	virtual void OpenDoors() = 0;
 	virtual void CloseDoors() = 0;

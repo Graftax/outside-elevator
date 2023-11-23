@@ -5,7 +5,8 @@
 // simluated data and real-world sensors.
 class SensorProvider
 {
-	virtual ~SensorProvider() = 0;
+
+public:
 
 	// Should read from all encoders and convert ticks to mm. Potentially a 
 	// great place to throw an exception of multiple encoders provide values 
@@ -16,6 +17,8 @@ class SensorProvider
 	// include encoder sanity checks.
 	virtual int ReadVelocityAsMMs() = 0;
 
+	// Should return true if the floor of the elevator is within 7mm of the 
+	// floor of any stop.
 	virtual bool ReadStopAlignmentSensor() = 0;
 
 	// The value should be true only if the contact sensor between the doors 
