@@ -2,6 +2,7 @@
 #include "ControlProvider.h"
 #include "SensorProvider.h"
 #include "Simulatable.h"
+#include <string>
 
 class SimulatedElevator: public SensorProvider, public ControlProvider, public Simulatable 
 {
@@ -23,6 +24,8 @@ public:
 
 	SimulatedElevator();
 	~SimulatedElevator();
+
+	std::string GetStateAsString();
 
 	// Implementation for Simulatable =========================================
 

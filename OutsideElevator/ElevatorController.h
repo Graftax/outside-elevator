@@ -10,6 +10,7 @@ private:
 
 	SensorProvider* _sensors = nullptr;
 	ControlProvider* _controls = nullptr;
+	std::queue<int> _stops;
 
 public:
 

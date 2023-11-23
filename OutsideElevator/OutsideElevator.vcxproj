@@ -130,10 +130,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlProvider.h" />
+    <ClCompile Include="ElevatorController.cpp" />
     <ClCompile Include="OutsideElevator.cpp" />
     <ClCompile Include="SimulatedElevator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ElevatorController.h" />
     <ClInclude Include="SensorProvider.h" />
     <ClInclude Include="Simulatable.h" />
     <ClInclude Include="SimulatedElevator.h" />

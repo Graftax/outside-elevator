@@ -1,6 +1,6 @@
 #include "SimulatedElevator.h"
 #include <algorithm>
-
+#include <sstream>
 
 SimulatedElevator::SimulatedElevator()
 {
@@ -12,17 +12,22 @@ SimulatedElevator::~SimulatedElevator()
 
 }
 
+std::string SimulatedElevator::GetStateAsString()
+{
+    std::ostringstream oss;
+    oss << _positionMM;
+    return oss.str();
+}
+
 void SimulatedElevator::Step(float deltaTime)
 {
     // Some lazy, lossy integration, TODO-NICE: Eliminate lossyness.
     // We are assuming perfect acceleration and ignoring the mass of the elevator.
 
-    float acceleration = _targetVelocityMMs - _velocityMMs;
+    float dir = _targetVelocityMMs > _velocityMMs ? 1.0f : -1.0f;
+    float acceleration = dir * MaxAccelerationMMs2;
 
-    // Limit acceleration to a reasonable max.
-    float limitedAcceleration = std::clamp(acceleration, -MaxAccelerationMMs2, MaxAccelerationMMs2);
-
-    _velocityMMs += (limitedAcceleration * deltaTime);
+    _velocityMMs += (acceleration * deltaTime);
     _positionMM += (_velocityMMs * deltaTime);
 }
 

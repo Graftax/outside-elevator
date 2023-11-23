@@ -19,7 +19,8 @@ int main()
 	controller.Init(&simulationTarget, &simulationTarget);
 
 	std::queue<int> stops;
-	stops.push(1);
+	stops.push(3);
+	stops.push(-3);
 	controller.addStops(stops);
 
 	milliseconds prevTimestamp = duration_cast<milliseconds>( system_clock::now().time_since_epoch());
@@ -40,8 +41,7 @@ int main()
 			timeBankMS -= FixedDeltaTime;
 			simulationTarget.Step(FixedDeltaTime);
 			controller.Step(FixedDeltaTime);
-
-			std::cout << simulationTarget.ReadPositionAsMM() << ", " << simulationTarget.ReadStopAlignmentSensor() << std::endl;
+			std::cout << simulationTarget.GetStateAsString() << std::endl;
 		}
 	}
 
