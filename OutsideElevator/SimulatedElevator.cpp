@@ -41,10 +41,15 @@ int SimulatedElevator::ReadVelocityAsMMs()
     return (int)_velocityMMs;
 }
 
-bool SimulatedElevator::ReadStopAlignmentSensor()
+int SimulatedElevator::ReadStopDisplacementAsMM(int floor)
 {
-    int modulus = (int)_positionMM % FloorIntervalMM;
-    return abs(modulus) < MaxTripHazardHeightMM;
+    int testPosMM = floor * FloorIntervalMM;
+    return (int)(testPosMM - _positionMM);
+}
+
+bool SimulatedElevator::ReadStopAlignmentSensor(int floor)
+{
+    return abs(ReadStopDisplacementAsMM(floor)) < MaxTripHazardHeightMM;
 }
 
 bool SimulatedElevator::ReadIsDoorClosed()

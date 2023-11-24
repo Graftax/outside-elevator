@@ -33,37 +33,38 @@ public:
 
 	// Implementation for SensorProvider ======================================
 
-	virtual int ReadPositionAsMM() override;
-
-	virtual int ReadVelocityAsMMs() override;
-
-	virtual bool ReadStopAlignmentSensor() override;
-	virtual bool ReadIsDoorClosed() override;
-	virtual bool ReadIsDoorOpen() override;
-
-	virtual bool ReadAreBreaksEngaged() override;
-	virtual bool ReadIsDoorObstructed() override;
-	virtual std::vector<int> ReadFloorButtonsPressed() override;
-
-	virtual int ReadLoadKg() override;
-	virtual bool ReadEmergencyButtonActive() override;
-
-	virtual bool ReadEmergencyKeyEngaged() override;
-	virtual bool ReadSecurityKeyEngaged() override;
-	virtual bool ReadMaintenenceKeyEngaged() override;
+	int ReadPositionAsMM() override;
+	
+	int ReadVelocityAsMMs() override;
+	
+	int ReadStopDisplacementAsMM(int floor) override;
+	bool ReadStopAlignmentSensor(int floor) override;
+	bool ReadIsDoorClosed() override;
+	bool ReadIsDoorOpen() override;
+	
+	bool ReadAreBreaksEngaged() override;
+	bool ReadIsDoorObstructed() override;
+	std::vector<int> ReadFloorButtonsPressed() override;
+	
+	int ReadLoadKg() override;
+	bool ReadEmergencyButtonActive() override;
+	
+	bool ReadEmergencyKeyEngaged() override;
+	bool ReadSecurityKeyEngaged() override;
+	bool ReadMaintenenceKeyEngaged() override;
 	
 	// Implementation for ControlProvider =====================================
 
-	virtual void SetTargetVelocity(int MMS) override;
-
-	virtual void OpenDoors() override;
-	virtual void CloseDoors() override;
-
-	virtual void EngageBrakes() override;
-	virtual void ReleaseBrakes() override;
-
-	virtual void DeactivateButtons(std::vector<int> floors) override;
-	virtual void DeactivateEmergencyButtons() override;
+	void SetTargetVelocity(int MMS) override;
+	
+	void OpenDoors() override;
+	void CloseDoors() override;
+	
+	void EngageBrakes() override;
+	void ReleaseBrakes() override;
+	
+	void DeactivateButtons(std::vector<int> floors) override;
+	void DeactivateEmergencyButtons() override;
 
 	// ========================================================================
 };

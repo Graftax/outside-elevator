@@ -17,9 +17,11 @@ public:
 	// include encoder sanity checks.
 	virtual int ReadVelocityAsMMs() = 0;
 
+	virtual int ReadStopDisplacementAsMM(int floor) = 0;
+
 	// Should return true if the floor of the elevator is within 7mm of the 
-	// floor of any stop.
-	virtual bool ReadStopAlignmentSensor() = 0;
+	// floor of the provided stop.
+	virtual bool ReadStopAlignmentSensor(int floor) = 0;
 
 	// The value should be true only if the contact sensor between the doors 
 	// is engaged.
