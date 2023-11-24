@@ -15,7 +15,7 @@ SimulatedElevator::~SimulatedElevator()
 std::string SimulatedElevator::GetStateAsString()
 {
     std::ostringstream oss;
-    oss << _positionMM;
+    oss << _positionMM << ",\t" << _velocityMMs;
     return oss.str();
 }
 
@@ -24,10 +24,14 @@ void SimulatedElevator::Step(float deltaTime)
     // Some lazy, lossy integration, TODO-NICE: Eliminate lossyness.
     // We are assuming perfect acceleration and ignoring the mass of the elevator.
 
-    float dir = _targetVelocityMMs > _velocityMMs ? 1.0f : -1.0f;
-    float acceleration = dir * MaxAccelerationMMs2;
+    float currVelocityDelta = _targetVelocityMMs - _velocityMMs;
+    float dir = currVelocityDelta > 0.0f ? 1.0f : -1.0f;
 
-    _velocityMMs += (acceleration * deltaTime);
+    float acceleration = dir * std::clamp(MaxAccelerationMMs2, 
+        -abs(currVelocityDelta),
+        abs(currVelocityDelta));
+
+    _velocityMMs += acceleration * deltaTime;
     _positionMM += (_velocityMMs * deltaTime);
 }
 

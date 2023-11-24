@@ -19,7 +19,10 @@ void ElevatorController::Step(float deltaTime)
 		return;
 	}
 
-	if (_sensors->ReadStopDisplacementAsMM(_stops.front()) > 0)
+	int displacement = _sensors->ReadStopDisplacementAsMM(_stops.front());
+	
+
+	if (displacement > 0)
 		_controls->SetTargetVelocity(1200);
 	else
 		_controls->SetTargetVelocity(-1200);
@@ -31,5 +34,5 @@ void ElevatorController::addStops(std::queue<int> floors)
 	{
 		_stops.push(floors.front());
 		floors.pop();
-	}	
+	}
 }

@@ -18,7 +18,7 @@ private:
 	// will assume a uniform distance in this simulation.
 	const int FloorIntervalMM = 3000;
 	const int MaxTripHazardHeightMM = 7; // https://www.osha.com/blog/slips-trips-falls-prevention
-	const float MaxAccelerationMMs2 = 1200; // https://modularelevator.net/elevator-speeds/
+	const float MaxAccelerationMMs2 = 1200.0f; // https://modularelevator.net/elevator-speeds/
 
 public:
 
