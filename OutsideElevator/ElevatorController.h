@@ -17,5 +17,6 @@ public:
 	void Init(SensorProvider* sensors, ControlProvider* controls);
 	void Step(float deltaTime) override;
 	void addStops(std::queue<int> floors);
+	bool hasStops() { return _stops.size() > 0; }
 };
 

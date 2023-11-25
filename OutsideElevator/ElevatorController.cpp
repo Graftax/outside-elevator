@@ -19,13 +19,15 @@ void ElevatorController::Step(float deltaTime)
 		return;
 	}
 
-	int displacement = _sensors->ReadStopDisplacementAsMM(_stops.front());
-	
+	int displacementMM = _sensors->ReadStopDisplacementAsMM(_stops.front());
+	int velMMs = _sensors->ReadVelocityAsMMs();
+	int futureDispMM = displacementMM - velMMs;
 
-	if (displacement > 0)
-		_controls->SetTargetVelocity(1200);
-	else
-		_controls->SetTargetVelocity(-1200);
+	// Using the geometric caluclation for deceleration. Since its linear we 
+	// can derive the velocity we want from the area of a right triangle where 
+	// one side is our acceleration and the other is our distance.
+	int maxVel = sqrt(1200.0f * abs(futureDispMM) * 2);
+	_controls->SetTargetVelocity(futureDispMM > 0 ? maxVel : -maxVel);
 }
 
 void ElevatorController::addStops(std::queue<int> floors)

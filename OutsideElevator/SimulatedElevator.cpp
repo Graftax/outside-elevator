@@ -1,6 +1,7 @@
 #include "SimulatedElevator.h"
 #include <algorithm>
 #include <sstream>
+#include <iomanip>
 
 SimulatedElevator::SimulatedElevator()
 {
@@ -15,8 +16,13 @@ SimulatedElevator::~SimulatedElevator()
 std::string SimulatedElevator::GetStateAsString()
 {
     std::ostringstream oss;
-    oss << _positionMM << ",\t" << _velocityMMs;
+    oss << std::setw(8) << _positionMM << " " << std::setw(8) << _velocityMMs;
     return oss.str();
+}
+
+void SimulatedElevator::setFloor(int _floor)
+{
+    _positionMM = FloorIntervalMM * _floor;
 }
 
 void SimulatedElevator::Step(float deltaTime)

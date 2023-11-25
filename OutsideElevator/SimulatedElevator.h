@@ -13,9 +13,10 @@ private:
 	float _targetVelocityMMs = 0;
 
 	// Ideally should be configurable with a specified measurement per floor, 
-	// since constructon will almost never result in mm-perfect landings. But 
-	// the input appears to be arbitrary floor numbers with no bounds, so we 
-	// will assume a uniform distance in this simulation.
+	// since constructon will almost never result in mm-perfect landings. Its 
+	// even likely that the distance between landings can shift by MM over 
+	// time. But the input appears to be arbitrary floor numbers with no 
+	// bounds, so we will assume a uniform distance in this simulation.
 	const int FloorIntervalMM = 3000;
 	const int MaxTripHazardHeightMM = 7; // https://www.osha.com/blog/slips-trips-falls-prevention
 	const float MaxAccelerationMMs2 = 1200.0f; // https://modularelevator.net/elevator-speeds/
@@ -26,6 +27,7 @@ public:
 	~SimulatedElevator();
 
 	std::string GetStateAsString();
+	void setFloor(int _floor);
 
 	// Implementation for Simulatable =========================================
 
