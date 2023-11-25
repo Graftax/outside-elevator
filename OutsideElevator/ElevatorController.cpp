@@ -10,8 +10,13 @@ void ElevatorController::Init(SensorProvider* sensors, ControlProvider* controls
 
 void ElevatorController::Step(float deltaTime)
 {
+	_timeSpentSecs += deltaTime;
+
 	if (_stops.size() > 0 && _sensors->ReadStopAlignmentSensor(_stops.front()))
+	{
+		_stopsVisited.push_back(_stops.front());
 		_stops.pop();
+	}
 
 	if (_stops.size() <= 0)
 	{
@@ -26,15 +31,12 @@ void ElevatorController::Step(float deltaTime)
 	// Using the geometric caluclation for deceleration. Since its linear we 
 	// can derive the velocity we want from the area of a right triangle where 
 	// one side is our acceleration and the other is our distance.
-	int maxVel = sqrt(1200.0f * abs(futureDispMM) * 2);
+	int maxVel = (int)sqrt(_controls->GetMaxAccelerationMMs2() * abs(futureDispMM) * 2);
 	_controls->SetTargetVelocity(futureDispMM > 0 ? maxVel : -maxVel);
 }
 
-void ElevatorController::addStops(std::queue<int> floors)
+void ElevatorController::AddStops(const std::list<int>& floors)
 {
-	while (floors.size() > 0) 
-	{
-		_stops.push(floors.front());
-		floors.pop();
-	}
+	for (int currFloor : floors)
+		_stops.push(currFloor);
 }

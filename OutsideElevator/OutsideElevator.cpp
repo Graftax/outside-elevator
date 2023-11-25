@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	int startingFloor = 0;
-	std::queue<int> floorsToVisit;
+	std::list<int> floorsToVisit;
 
 	for (int i = 0; i < argc; ++i)
 	{
@@ -41,23 +41,22 @@ int main(int argc, char* argv[])
 			std::string currFloorText;
 			while (std::getline(floorsStream, currFloorText, FloorDelimeter))
 			{
-				floorsToVisit.push(std::stoi(currFloorText));
+				floorsToVisit.push_back(std::stoi(currFloorText));
 			}
 		}
 	}
-		
 
     SimulatedElevator simulationTarget;
 	ElevatorController controller;
 
 	simulationTarget.setFloor(startingFloor);
 	controller.Init(&simulationTarget, &simulationTarget);
-	controller.addStops(floorsToVisit);
+	controller.AddStops(floorsToVisit);
 
 	milliseconds prevTimestamp = duration_cast<milliseconds>( system_clock::now().time_since_epoch());
 	float timeBankMS = 0;
 
-	while (controller.hasStops())
+	while (controller.HasStops())
 	{
 		milliseconds nowMS = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
 		milliseconds delta = nowMS - prevTimestamp;
@@ -73,10 +72,28 @@ int main(int argc, char* argv[])
 			simulationTarget.Step(FixedDeltaTime);
 			controller.Step(FixedDeltaTime);
 
+			system("cls");
 			std::cout << simulationTarget.GetStateAsString() << std::endl;
 		}
 	}
 
+	std::ostringstream oss;
+	oss << controller.GetTimeSpent() << " ";
+
+	const std::list<int>& stopsVisited = controller.GetStopsVisited();
+	bool shouldAddComma = false;
+	for (int currVisited : stopsVisited)
+	{
+		if (shouldAddComma)
+			oss << ",";
+
+		if (!shouldAddComma)
+			shouldAddComma = true;
+
+		oss << currVisited;
+	}
+
+	std::cout << oss.str() << std::endl;
 	system("pause");
 }
 

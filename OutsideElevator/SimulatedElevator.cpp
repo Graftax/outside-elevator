@@ -16,13 +16,16 @@ SimulatedElevator::~SimulatedElevator()
 std::string SimulatedElevator::GetStateAsString()
 {
     std::ostringstream oss;
-    oss << std::setw(8) << _positionMM << " " << std::setw(8) << _velocityMMs;
+    oss << std::fixed << std::setprecision(2);
+    oss << "Position: " << std::setw(10) << _positionMM << "mm \t"
+        << "Velocity: " << std::setw(10) << _velocityMMs << "mm/s";
+
     return oss.str();
 }
 
 void SimulatedElevator::setFloor(int _floor)
 {
-    _positionMM = FloorIntervalMM * _floor;
+    _positionMM = (float)(FloorIntervalMM * _floor);
 }
 
 void SimulatedElevator::Step(float deltaTime)
@@ -114,7 +117,12 @@ bool SimulatedElevator::ReadMaintenenceKeyEngaged()
 
 void SimulatedElevator::SetTargetVelocity(int mms)
 {
-    _targetVelocityMMs = (float)mms;
+    _targetVelocityMMs = std::clamp((float)mms, -MaxVelocityMMs, MaxVelocityMMs);
+}
+
+float SimulatedElevator::GetMaxAccelerationMMs2()
+{
+    return MaxAccelerationMMs2;
 }
 
 void SimulatedElevator::OpenDoors()

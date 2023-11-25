@@ -9,6 +9,7 @@ public:
 	// Should tell the lift mechanism what velocity to attempt to achieve. Should 
 	// sanity check value before sending in case encoders fail to check due to wear/damage.
 	virtual void SetTargetVelocity(int MMS) = 0;
+	virtual float GetMaxAccelerationMMs2() = 0;
 
 	virtual void OpenDoors() = 0;
 	virtual void CloseDoors() = 0;

@@ -19,7 +19,16 @@ private:
 	// bounds, so we will assume a uniform distance in this simulation.
 	const int FloorIntervalMM = 3000;
 	const int MaxTripHazardHeightMM = 7; // https://www.osha.com/blog/slips-trips-falls-prevention
+	
 	const float MaxAccelerationMMs2 = 1200.0f; // https://modularelevator.net/elevator-speeds/
+	
+	// This is how we get the 10s per floor travel time. The distannce between 
+	// each floor is 3000mm so a vel of 300mm/s gets us close to 10s. Actual 
+	// travel time will be a little higher due to acceleration and deceleration 
+	// periods. I could derive the values necessary to have a 10s per floor 
+	// travel time, but that seems sort of contrived for the scope of this 
+	// project.
+	const float MaxVelocityMMs = 300.0f;
 
 public:
 
@@ -58,7 +67,8 @@ public:
 	// Implementation for ControlProvider =====================================
 
 	void SetTargetVelocity(int MMS) override;
-	
+	float GetMaxAccelerationMMs2() override;
+
 	void OpenDoors() override;
 	void CloseDoors() override;
 	
