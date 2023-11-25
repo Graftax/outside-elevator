@@ -27,3 +27,4 @@ During execution the console shows the current position and velocity of the elev
 7. Passenger boarding/exiting is not implemented.
 8. Security overrides are not implemented.
 9. Maintenence mode is not implemented.
+10. Elevator floor display is not implemented.
