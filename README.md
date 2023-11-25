@@ -15,7 +15,7 @@ During execution the console shows the current position and velocity of the elev
 5. That your floors are all evenly spaced. If you have significant deviations in your travel distances, it is currently not possible to compensate.
 6. That your elevator is in the United States. No attempt as been made to comply with safety standards from other regions.
 7. That you will be executing this on hardware that is capable of running the program at 60 updates per second. Running it on especially low-power devices could result in latency or overshooting/undershooting floor position targets.
-8. That your building is infinitely tall and immune to the heat and pressure of the core of the earth, in addition to the pressure-differential and radiation present outside the atmosphere.
+8. That your elevator is infinitely tall and immune to the heat and pressure of the core of the earth, in addition to the pressure-differential and radiation present outside the atmosphere.
    
 ## Unimplemented Features
 1. Door control. The controller currently will not drive door operation, and the simulation environment does not implemented door movement.
