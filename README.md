@@ -8,7 +8,7 @@ Currently accepts two command line arguments; `start` and `floors`. `start` (opt
 
 During execution the console shows the current position and velocity of the elevator. When the elevator has visited all floors specified in `floors` the program will output the total time spent traveling and a comma-separated list of each floor it visited in the order that they were visited.
 
-##Assumptions
+## Assumptions
 1. That retrieving values from the sensors occurs immediatly. If you are providing a sensor interface you must provide a value synchronously.
 3. That the encoders on your lift mechanism have an accuracy of at least 1 millimeter. If the encoders you use are less accurate than 3mm it could result in intolerable misalignment.
 4. That buttons can only be activated by passengers, there is no mechanism for the controller to cause a button to become activated, or for one to be activated via signals external to the elevator loop.
@@ -17,7 +17,7 @@ During execution the console shows the current position and velocity of the elev
 7. That you will be executing this on hardware that is capable of running the program at 60 updates per second. Running it on especially low-power devices could result in latency or overshooting/undershooting floor position targets.
 8. That your building is infinitely tall and immune to the heat and pressure of the core of the earth, in addition to the pressure-differential and radiation present outside the atmosphere.
    
-##Unimplemented Features
+## Unimplemented Features
 1. Door control. The controller currently will not drive door operation, and the simulation environment does not implemented door movement.
 2. Brake control. The controller currently assumes that breaks are off and never engaged. The simulation does not account for brakes.
 3. Button state is not implemented in the simulation, and the controller currently does not listen for button states. 
